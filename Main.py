@@ -1,7 +1,7 @@
 import os
 
 from Graph_Generation import generate_random_graph
-from Dijkstras import dijkstras_algorithm, print_analytics
+from Dijkstras import dijkstras_algorithm, print_dijkstras_analytics
 
 W = 56  # box width
 APP_TITLE = 'SHORTEST PATH ALGORITHM EXPLORER'
@@ -243,12 +243,12 @@ def screen_run(current, source, target):
         result = ' → '.join(str(n) for n in path) if path else 'no path found'
         print(f'  Path   : {result}')
         print()
-        print_analytics()
+        print_dijkstras_analytics()
     else:
         print(f'  All shortest paths from node {source}:')
         print()
         dijkstras_algorithm(graph, source=source)
-        print_analytics()
+        print_dijkstras_analytics()
 
     print()
     input('  Press Enter to continue...')

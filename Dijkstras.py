@@ -76,7 +76,7 @@ def dijkstras_algorithm(graph, source, target=None):
     return _all_paths
 
 
-def print_analytics():
+def print_dijkstras_analytics():
     """Print runtime and all paths recorded by the last algorithm run."""
     print(f"runtime: {_runtime_seconds:.6f} seconds")
     print(f"paths found: {len(_all_paths)}")
