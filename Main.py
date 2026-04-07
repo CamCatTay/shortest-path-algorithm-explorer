@@ -4,11 +4,37 @@ from Dijkstras import dijkstras_algorithm, print_analytics
 
 def main():
     # generate a small reproducible graph for demonstration
-    graph = generate_random_graph(num_nodes=6, num_edges=10, seed=42)
+
+    # dense graph
+    #graph = generate_random_graph(num_nodes=6, num_edges=12, seed=42)
+
+    # sparse graph
+    graph = generate_random_graph(num_nodes=6, num_edges=6, seed=42)
+
+    # negative weight graph
+    #graph = generate_random_graph(num_nodes=6, num_edges=6, seed=42, min_weight=-10)
+
+    # large sparse graph (time trial)
+    #graph = generate_random_graph(num_nodes=500, num_edges=600, seed=42)
+
+    # large dense graph (time trial)
+    #graph = generate_random_graph(num_nodes=500, num_edges=5000, seed=42)
+
+    # large negative weight graph (time trial - bellman-ford only)
+    #graph = generate_random_graph(num_nodes=500, num_edges=600, seed=42, min_weight=-10)
+
 
     print("graph adjacency list:")
     for node, edges in sorted(graph.items()):
         print(f"  {node}: {edges}")
+    print()
+
+    # write edge list to file to reproduce visually on https://csacademy.com/app/graph_editor/.
+    with open("graph_data.txt", "w") as f:
+        for node, edges in sorted(graph.items()):
+            for neighbor, weight in edges:
+                f.write(f"{node} {neighbor} {weight}\n")
+    print("graph data written to graph_data.txt")
     print()
 
     source = 0
