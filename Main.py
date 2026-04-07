@@ -85,8 +85,9 @@ def print_main_menu(current, source, target):
     row('4.  Set target node')
     row('5.  Display current selections')
     row("6.  Run Dijkstra's algorithm")
-    row('7.  Clear screen')
-    row('8.  Exit')
+    row("7.  Run Bellman-Ford algorithm")
+    row('8.  Clear screen')
+    row('9.  Exit')
     bot()
     print()
 
@@ -219,7 +220,7 @@ def screen_set_node(current, kind, current_val):
     return node
 
 
-def screen_run(current, source, target):
+def screen_run_dijkstras(current, source, target):
     clear()
     header(" RUN DIJKSTRA'S ALGORITHM ")
     if not current:
@@ -250,6 +251,19 @@ def screen_run(current, source, target):
         dijkstras_algorithm(graph, source=source)
         print_dijkstras_analytics()
 
+    print()
+    input('  Press Enter to continue...')
+
+
+def screen_run_bellman(current, source, target):
+    clear()
+    header(" RUN BELLMAN-FORD ALGORITHM ")
+    if not current:
+        print('  No graph selected. Choose or create a graph first.')
+        input('  Press Enter to continue...')
+        return
+
+    print('  Bellman-Ford algorithm not yet implemented.')
     print()
     input('  Press Enter to continue...')
 
@@ -290,12 +304,15 @@ def main():
             screen_selections(current, source, target)
 
         elif choice == '6':
-            screen_run(current, source, target)
+            screen_run_dijkstras(current, source, target)
 
         elif choice == '7':
-            clear()
+            screen_run_bellman(current, source, target)
 
         elif choice == '8':
+            clear()
+
+        elif choice == '9':
             clear()
             print('  Goodbye.')
             break
