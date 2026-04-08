@@ -4,6 +4,7 @@ import time
 # global state populated by dijkstras_algorithm
 _runtime_seconds = 0.0
 _all_paths = {}  # maps each reachable node to its full path from source
+_all_costs = {}  # maps each reachable node to its total path cost
 
 
 def dijkstras_algorithm(graph, source, target=None):
@@ -16,7 +17,7 @@ def dijkstras_algorithm(graph, source, target=None):
     returns the shortest path (list of nodes) to target, or a dict of all
     shortest paths keyed by destination node when target is None.
     """
-    global _runtime_seconds, _all_paths
+    global _runtime_seconds, _all_paths, _all_costs
 
     # initialize distances to infinity for all nodes except source
     dist = {node: float('inf') for node in graph}
@@ -65,13 +66,16 @@ def dijkstras_algorithm(graph, source, target=None):
     if target is not None:
         path = _reconstruct(target)
         _all_paths = {target: path}
+        _all_costs = {target: dist[target]}
         return path
 
     # build paths for every reachable node
     _all_paths = {}
+    _all_costs = {}
     for node in graph:
         if dist[node] < float('inf'):
             _all_paths[node] = _reconstruct(node)
+            _all_costs[node] = dist[node]
 
     return _all_paths
 
@@ -81,5 +85,7 @@ def print_dijkstras_analytics():
     print(f"runtime: {_runtime_seconds:.6f} seconds")
     print(f"paths found: {len(_all_paths)}")
     for destination, path in sorted(_all_paths.items(), key=lambda x: str(x[0])):
-        path_str = ' -> '.join(str(n) for n in path) if path else 'unreachable'
-        print(f"  {destination}: {path_str}")
+        path_str = ' → '.join(str(n) for n in path) if path else 'unreachable'
+        cost = _all_costs.get(destination)
+        cost_str = f" (Cost: {cost})" if cost is not None else ''
+        print(f"  {cost_str} Target: {destination}: {path_str}")
