@@ -2,6 +2,7 @@ import os
 
 from Graph_Generation import generate_random_graph
 from Dijkstras import dijkstras_algorithm, print_dijkstras_analytics
+from BellmanFord import bellman_ford_algorithm, print_bellman_ford_analytics
 
 W = 56  # box width
 APP_TITLE = 'SHORTEST PATH ALGORITHM EXPLORER'
@@ -37,10 +38,10 @@ def header(subtitle):
 PRESETS = [
     {'name': 'Small Dense',               'num_nodes': 6,   'num_edges': 12,   'seed': 42, 'min_weight': 1,   'max_weight': 10, 'directed': False},
     {'name': 'Small Sparse',              'num_nodes': 6,   'num_edges': 6,    'seed': 42, 'min_weight': 1,   'max_weight': 10, 'directed': False},
-    {'name': 'Small Negative Weight',     'num_nodes': 6,   'num_edges': 6,    'seed': 42, 'min_weight': -10, 'max_weight': 10, 'directed': False},
+    {'name': 'Small Negative Weight',     'num_nodes': 6,   'num_edges': 6,    'seed': 42, 'min_weight': -10, 'max_weight': 10, 'directed': True},
     {'name': 'Large Sparse  (time trial)','num_nodes': 500, 'num_edges': 600,  'seed': 42, 'min_weight': 1,   'max_weight': 10, 'directed': False},
     {'name': 'Large Dense   (time trial)','num_nodes': 500, 'num_edges': 5000, 'seed': 42, 'min_weight': 1,   'max_weight': 10, 'directed': False},
-    {'name': 'Large Neg Wt  (time trial)','num_nodes': 500, 'num_edges': 600,  'seed': 42, 'min_weight': -10, 'max_weight': 10, 'directed': False},
+    {'name': 'Large Neg Wt  (time trial)','num_nodes': 500, 'num_edges': 600,  'seed': 42, 'min_weight': -10, 'max_weight': 10, 'directed': True},
 ]
 
 # ── graph helpers ──────────────────────────────────────────────────────────
@@ -263,7 +264,32 @@ def screen_run_bellman(current, source, target):
         input('  Press Enter to continue...')
         return
 
-    print('  Bellman-Ford algorithm not yet implemented.')
+    graph = current['graph']
+    p = current['params']
+
+    if p['num_nodes'] <= 20:
+        print('  Adjacency list:')
+        for node, edges in sorted(graph.items()):
+            print(f'    {node}: {edges}')
+        print()
+
+    try:
+        if target is not None:
+            print(f'  Shortest path  {source} → {target}')
+            print()
+            path = bellman_ford_algorithm(graph, source=source, target=target)
+            result = ' → '.join(str(n) for n in path) if path else 'no path found'
+            print(f'  Path   : {result}')
+            print()
+            print_bellman_ford_analytics()
+        else:
+            print(f'  All shortest paths from node {source}:')
+            print()
+            bellman_ford_algorithm(graph, source=source)
+            print_bellman_ford_analytics()
+    except ValueError as e:
+        print(f'  Error: {e}')
+
     print()
     input('  Press Enter to continue...')
 
