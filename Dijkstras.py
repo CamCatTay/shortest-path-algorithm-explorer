@@ -44,6 +44,7 @@ def dijkstras_algorithm(graph, source, target=None):
         if target is not None and current_node == target:
             break
 
+        # edge relaxation
         for neighbor, weight in graph.get(current_node, []):
             new_dist = current_dist + weight
             if new_dist < dist[neighbor]:
