@@ -83,10 +83,11 @@ def dijkstras_algorithm(graph, source, target=None):
 
 def print_dijkstras_analytics():
     """Print runtime and all paths recorded by the last algorithm run."""
-    print(f"runtime: {_runtime_seconds:.6f} seconds")
     print(f"paths found: {len(_all_paths)}")
     for destination, path in sorted(_all_paths.items(), key=lambda x: str(x[0])):
         path_str = ' → '.join(str(n) for n in path) if path else 'unreachable'
         cost = _all_costs.get(destination)
         cost_str = f" (Cost: {cost})" if cost is not None else ''
         print(f"  {cost_str} Target: {destination}: {path_str}")
+
+    print(f"\nruntime: {_runtime_seconds:.6f} seconds")

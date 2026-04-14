@@ -93,3 +93,5 @@ def print_bellman_ford_analytics():
         cost = _all_costs.get(destination)
         cost_str = f" (Cost: {cost})" if cost is not None else ''
         print(f"  {cost_str} Target: {destination}: {path_str}")
+
+    print(f"\nruntime: {_runtime_seconds:.6f} seconds")
