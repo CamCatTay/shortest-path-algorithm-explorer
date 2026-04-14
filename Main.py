@@ -7,7 +7,7 @@ from BellmanFord import bellman_ford_algorithm, print_bellman_ford_analytics
 W = 56  # box width
 APP_TITLE = 'SHORTEST PATH ALGORITHM EXPLORER'
 
-# ── box drawing helpers ────────────────────────────────────────────────────
+# box drawing helpers
 
 def clear():
     os.system('cls' if os.name == 'nt' else 'clear')
@@ -33,7 +33,7 @@ def header(subtitle):
     bot()
     print()
 
-# ── preset graph definitions ───────────────────────────────────────────────
+# preset graph definitions
 
 PRESETS = [
     {'name': 'Small Dense',               'num_nodes': 6,   'num_edges': 12,   'seed': 42, 'min_weight': 1,   'max_weight': 10, 'directed': False},
@@ -44,7 +44,7 @@ PRESETS = [
     {'name': 'Large Neg Wt  (time trial)','num_nodes': 500, 'num_edges': 600,  'seed': 42, 'min_weight': -10, 'max_weight': 10, 'directed': True},
 ]
 
-# ── graph helpers ──────────────────────────────────────────────────────────
+# graph helpers
 
 def build_graph(params):
     return generate_random_graph(
@@ -67,7 +67,7 @@ def activate(entry):
                 f.write(f'{node} {neighbor} {weight}\n')
     return entry
 
-# ── screens ────────────────────────────────────────────────────────────────
+# screens
 
 def print_main_menu(current, source, target):
     clear()
@@ -185,7 +185,6 @@ def screen_selections(current, source, target):
 
 
 def screen_set_node(current, kind, current_val):
-    """Prompt user to set source or target node. Returns the new value."""
     clear()
     is_target = kind == 'target'
     subtitle = ' SET TARGET NODE ' if is_target else ' SET SOURCE NODE '
@@ -293,7 +292,7 @@ def screen_run_bellman(current, source, target):
     print()
     input('  Press Enter to continue...')
 
-# ── main loop ──────────────────────────────────────────────────────────────
+# main
 
 def main():
     graphs = [{'name': p['name'], 'params': p, 'graph': None} for p in PRESETS]
