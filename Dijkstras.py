@@ -27,14 +27,14 @@ def dijkstras_algorithm(graph, source, target=None):
     prev = {node: None for node in graph}
 
     # min-heap entries are (distance, node)
-    heap = [(0, source)]
+    pq = [(0, source)]
 
     visited = set()
 
     start_time = time.perf_counter()
 
-    while heap:
-        current_dist, current_node = heapq.heappop(heap)
+    while pq:
+        current_dist, current_node = heapq.heappop(pq)
 
         if current_node in visited:
             continue
@@ -50,7 +50,7 @@ def dijkstras_algorithm(graph, source, target=None):
             if new_dist < dist[neighbor]:
                 dist[neighbor] = new_dist
                 prev[neighbor] = current_node
-                heapq.heappush(heap, (new_dist, neighbor))
+                heapq.heappush(pq, (new_dist, neighbor))
 
     _runtime_seconds = time.perf_counter() - start_time
 
