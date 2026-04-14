@@ -1,56 +1,54 @@
 import heapq
 import time
 
-# global state populated by dijkstras_algorithm
+# global variables
 _runtime_seconds = 0.0
 _all_paths = {}  # maps each reachable node to its full path from source
 _all_costs = {}  # maps each reachable node to its total path cost
 
 
 def dijkstras_algorithm(graph, source, target=None):
-    """Run Dijkstra's shortest-path algorithm.
-
-    graph  -- adjacency dict: {node: [(neighbor, weight), ...]}
-    source -- starting node
-    target -- optional destination node; if None, compute paths to all vertices
-
-    returns the shortest path (list of nodes) to target, or a dict of all
-    shortest paths keyed by destination node when target is None.
-    """
     global _runtime_seconds, _all_paths, _all_costs
-
-    # initialize distances to infinity for all nodes except source
-    dist = {node: float('inf') for node in graph}
-    dist[source] = 0
 
     # track predecessor of each node to reconstruct paths
     prev = {node: None for node in graph}
 
-    # min-heap entries are (distance, node)
-    pq = [(0, source)]
+    # get start time prior to running algorithm for analysis
+    start_time = time.perf_counter()
+
+    # --- start dijkstra's ---
+
+    # initialize distances to infinity for all nodes except source
+    distances = {node: float('inf') for node in graph}
+    distances[source] = 0
+    pq = [(0, source)] # (distance to node)
 
     visited = set()
-
-    start_time = time.perf_counter()
 
     while pq:
         current_dist, current_node = heapq.heappop(pq)
 
+        # nodes that were already visited are skipped
         if current_node in visited:
             continue
-        visited.add(current_node)
+        else:
+            visited.add(current_node)
 
-        # early exit when only the path to target is needed
+        # early exit when only the path to target is needed (NOT required)
         if target is not None and current_node == target:
             break
 
         # edge relaxation
         for neighbor, weight in graph.get(current_node, []):
             new_dist = current_dist + weight
-            if new_dist < dist[neighbor]:
-                dist[neighbor] = new_dist
-                prev[neighbor] = current_node
+            if new_dist < distances[neighbor]:
+                distances[neighbor] = new_dist
+                prev[neighbor] = current_node # (NOT required)
                 heapq.heappush(pq, (new_dist, neighbor))
+
+        #return distances
+
+    # --- end dijkstra's ---
 
     _runtime_seconds = time.perf_counter() - start_time
 
@@ -67,22 +65,21 @@ def dijkstras_algorithm(graph, source, target=None):
     if target is not None:
         path = _reconstruct(target)
         _all_paths = {target: path}
-        _all_costs = {target: dist[target]}
+        _all_costs = {target: distances[target]}
         return path
 
     # build paths for every reachable node
     _all_paths = {}
     _all_costs = {}
     for node in graph:
-        if dist[node] < float('inf'):
+        if distances[node] < float('inf'):
             _all_paths[node] = _reconstruct(node)
-            _all_costs[node] = dist[node]
+            _all_costs[node] = distances[node]
 
     return _all_paths
 
 
 def print_dijkstras_analytics():
-    """Print runtime and all paths recorded by the last algorithm run."""
     print(f"paths found: {len(_all_paths)}")
     for destination, path in sorted(_all_paths.items(), key=lambda x: str(x[0])):
         path_str = ' → '.join(str(n) for n in path) if path else 'unreachable'
