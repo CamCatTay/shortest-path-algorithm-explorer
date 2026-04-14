@@ -184,7 +184,7 @@ def screen_selections(current, source, target):
         print(f"  Weights  : [{p.get('min_weight', 1)}, {p.get('max_weight', 10)}]")
         print(f"  Seed     : {p.get('seed', 'random')}")
         print(f"  Directed : {p.get('directed', False)}")
-        if p['num_nodes'] <= 20:
+        if p['num_nodes'] <= 1000:
             print()
             print('  Adjacency list:')
             for node, edges in sorted(current['graph'].items()):
