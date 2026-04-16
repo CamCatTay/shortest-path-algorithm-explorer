@@ -37,26 +37,27 @@ def header(subtitle):
 # visualize with https://csacademy.com/app/graph_editor/
 
 PRESETS = [
-    {'name': 'Small Dense',               'num_nodes': 6,   'num_edges': 12,   'seed': 42, 'min_weight': 1,   'max_weight': 10, 'directed': False},
-    {'name': 'Small Sparse',              'num_nodes': 6,   'num_edges': 6,    'seed': 42, 'min_weight': 1,   'max_weight': 10, 'directed': False},
-    {'name': 'Small Negative Weight (Directed)',     'num_nodes': 6,   'num_edges': 6,    'seed': 42, 'min_weight': -10, 'max_weight': 10, 'directed': True},
+    #{'name': 'Small Dense',               'num_nodes': 6,   'num_edges': 12,   'seed': 42, 'min_weight': 1,   'max_weight': 10, 'directed': False},
+    #{'name': 'Small Sparse',              'num_nodes': 6,   'num_edges': 6,    'seed': 42, 'min_weight': 1,   'max_weight': 10, 'directed': False},
+    #{'name': 'Small Negative Weight (Directed)',     'num_nodes': 6,   'num_edges': 6,    'seed': 42, 'min_weight': -10, 'max_weight': 10, 'directed': True},
     {'name': 'Small Negative Weight (Non-Directed; Negative Cycle)',     'num_nodes': 6,   'num_edges': 6,    'seed': 42, 'min_weight': -10, 'max_weight': 10, 'directed': False},
+    {'name': 'Large Negative Weight','num_nodes': 500, 'num_edges': 600,  'seed': 42, 'min_weight': -10, 'max_weight': 10, 'directed': True},
 
     {'name': 'Large Sparse','num_nodes': 500, 'num_edges': 600,  'seed': 42, 'min_weight': 1,   'max_weight': 10, 'directed': False},
     {'name': 'Large Dense','num_nodes': 500, 'num_edges': 5000, 'seed': 42, 'min_weight': 1,   'max_weight': 10, 'directed': False},
-    {'name': 'Large Negative Weight','num_nodes': 500, 'num_edges': 600,  'seed': 42, 'min_weight': -10, 'max_weight': 10, 'directed': True},
 
-    {'name': 'Time Trial 1 (Sparse)',               'num_nodes': 10,   'num_edges': 10*2,   'seed': 42, 'min_weight': 1,   'max_weight': 10, 'directed': True},
-    {'name': 'Time Trial 2 (Sparse)',               'num_nodes': 100,   'num_edges': 100*2,   'seed': 42, 'min_weight': 1,   'max_weight': 10, 'directed': True},
-    {'name': 'Time Trial 3 (Sparse)',               'num_nodes': 5000,   'num_edges': 5000*2,   'seed': 42, 'min_weight': 1,   'max_weight': 10, 'directed': True},
-    {'name': 'Time Trial 4 (Sparse)',               'num_nodes': 10000,   'num_edges': 10000*2,   'seed': 42, 'min_weight': 1,   'max_weight': 10, 'directed': True},
-    {'name': 'Time Trial 5 (Sparse)',               'num_nodes': 20000,   'num_edges': 20000*2,   'seed': 42, 'min_weight': 1,   'max_weight': 10, 'directed': True},
 
-    {'name': 'Time Trial 1 (Dense)',               'num_nodes': 10,   'num_edges': 10*10,   'seed': 42, 'min_weight': 1,   'max_weight': 10, 'directed': True},
-    {'name': 'Time Trial 2 (Dense)',               'num_nodes': 50,   'num_edges': 50*50,   'seed': 42, 'min_weight': 1,   'max_weight': 10, 'directed': True},
-    {'name': 'Time Trial 3 (Dense)',               'num_nodes': 250,   'num_edges': 250*250,   'seed': 42, 'min_weight': 1,   'max_weight': 10, 'directed': True},
-    {'name': 'Time Trial 4 (Dense)',               'num_nodes': 500,   'num_edges': 500*500,   'seed': 42, 'min_weight': 1,   'max_weight': 10, 'directed': True},
-    {'name': 'Time Trial 5 (Dense)',               'num_nodes': 1000,   'num_edges': 1000*1000,   'seed': 42, 'min_weight': 1,   'max_weight': 10, 'directed': True},
+    #{'name': 'Time Trial 1 (Sparse)',               'num_nodes': 10,   'num_edges': 10*2,   'seed': 42, 'min_weight': 1,   'max_weight': 10, 'directed': True},
+    #{'name': 'Time Trial 2 (Sparse)',               'num_nodes': 100,   'num_edges': 100*2,   'seed': 42, 'min_weight': 1,   'max_weight': 10, 'directed': True},
+    #{'name': 'Time Trial 3 (Sparse)',               'num_nodes': 5000,   'num_edges': 5000*2,   'seed': 42, 'min_weight': 1,   'max_weight': 10, 'directed': True},
+    #{'name': 'Time Trial 4 (Sparse)',               'num_nodes': 10000,   'num_edges': 10000*2,   'seed': 42, 'min_weight': 1,   'max_weight': 10, 'directed': True},
+    #{'name': 'Time Trial 5 (Sparse)',               'num_nodes': 20000,   'num_edges': 20000*2,   'seed': 42, 'min_weight': 1,   'max_weight': 10, 'directed': True},
+
+    #{'name': 'Time Trial 1 (Dense)',               'num_nodes': 10,   'num_edges': 10*10,   'seed': 42, 'min_weight': 1,   'max_weight': 10, 'directed': True},
+    #{'name': 'Time Trial 2 (Dense)',               'num_nodes': 50,   'num_edges': 50*50,   'seed': 42, 'min_weight': 1,   'max_weight': 10, 'directed': True},
+    #{'name': 'Time Trial 3 (Dense)',               'num_nodes': 250,   'num_edges': 250*250,   'seed': 42, 'min_weight': 1,   'max_weight': 10, 'directed': True},
+    #{'name': 'Time Trial 4 (Dense)',               'num_nodes': 500,   'num_edges': 500*500,   'seed': 42, 'min_weight': 1,   'max_weight': 10, 'directed': True},
+    #{'name': 'Time Trial 5 (Dense)',               'num_nodes': 1000,   'num_edges': 1000*1000,   'seed': 42, 'min_weight': 1,   'max_weight': 10, 'directed': True},
 ]
 
 # graph helpers
