@@ -34,11 +34,14 @@ def header(subtitle):
     print()
 
 # preset graph definitions (Sparse = V * 2; Dense = V * V)
+# visualize with https://csacademy.com/app/graph_editor/
 
 PRESETS = [
     {'name': 'Small Dense',               'num_nodes': 6,   'num_edges': 12,   'seed': 42, 'min_weight': 1,   'max_weight': 10, 'directed': False},
     {'name': 'Small Sparse',              'num_nodes': 6,   'num_edges': 6,    'seed': 42, 'min_weight': 1,   'max_weight': 10, 'directed': False},
-    {'name': 'Small Negative Weight',     'num_nodes': 6,   'num_edges': 6,    'seed': 42, 'min_weight': -10, 'max_weight': 10, 'directed': True},
+    {'name': 'Small Negative Weight (Directed)',     'num_nodes': 6,   'num_edges': 6,    'seed': 42, 'min_weight': -10, 'max_weight': 10, 'directed': True},
+    {'name': 'Small Negative Weight (Non-Directed; Negative Cycle)',     'num_nodes': 6,   'num_edges': 6,    'seed': 42, 'min_weight': -10, 'max_weight': 10, 'directed': False},
+
     {'name': 'Large Sparse','num_nodes': 500, 'num_edges': 600,  'seed': 42, 'min_weight': 1,   'max_weight': 10, 'directed': False},
     {'name': 'Large Dense','num_nodes': 500, 'num_edges': 5000, 'seed': 42, 'min_weight': 1,   'max_weight': 10, 'directed': False},
     {'name': 'Large Negative Weight','num_nodes': 500, 'num_edges': 600,  'seed': 42, 'min_weight': -10, 'max_weight': 10, 'directed': True},
