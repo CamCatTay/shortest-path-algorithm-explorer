@@ -4,7 +4,7 @@ import time
 _runtime_seconds = 0.0
 _all_paths = {}  # maps each reachable node to its full path from source
 _all_costs = {}  # maps each reachable node to its total path cost
-
+# --Start of Bellman-Ford--
 def bellman_ford_algorithm(graph, source, target=None):
     """Run Bellman-Ford shortest-path algorithm.
 
@@ -17,17 +17,20 @@ def bellman_ford_algorithm(graph, source, target=None):
     """
     global _runtime_seconds, _all_paths, _all_costs
 
-    # initialize distances to infinity for all nodes except source
+    # initialize distances to infinity for all nodes except the source node
+    # Set the [source] distance to 0
     dist = {node: float('inf') for node in graph}
     if source in dist:
         dist[source] = 0
 
     # track predecessor of each node to reconstruct paths
+    # Start a per_counter to track execution time.
     prev = {node: None for node in graph}
 
     start_time = time.perf_counter()
 
-    # Relax all edges V - 1 times
+    # Relax all edges V - 1 times as (num_vertices - 1)
+    # Each node checks all its neighbors for a shorter path as (dist[current] + weight < dist[neighbor]
     num_vertices = len(graph)
     for _ in range(num_vertices - 1):
         updated = False
@@ -67,7 +70,7 @@ def bellman_ford_algorithm(graph, source, target=None):
         path.reverse()
         # return empty list if node was unreachable
         return path if path and path[0] == source else []
-
+# use a help function _reconstruct to trace back from a target node
     if target is not None:
         path = _reconstruct(target)
         _all_paths = {target: path}
@@ -75,6 +78,7 @@ def bellman_ford_algorithm(graph, source, target=None):
         return path
 
     # build paths for every reachable node
+    # store results in global variables "_all_paths" and "_all_costs" for analytics
     _all_paths = {}
     _all_costs = {}
     for node in dist:
@@ -83,7 +87,7 @@ def bellman_ford_algorithm(graph, source, target=None):
             _all_costs[node] = dist[node]
 
     return _all_paths
-
+# --End of Bellman-ford--
 def print_bellman_ford_analytics():
     """Print runtime and all paths recorded by the last algorithm run."""
     print(f"runtime: {_runtime_seconds:.6f} seconds")
